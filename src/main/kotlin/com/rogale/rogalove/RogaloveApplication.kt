@@ -1,4 +1,4 @@
-package com.rogale.Rogalove
+package com.rogale.rogalove
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

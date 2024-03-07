@@ -1,4 +1,4 @@
-package com.rogale.Rogalove
+package com.rogale.rogalove
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
