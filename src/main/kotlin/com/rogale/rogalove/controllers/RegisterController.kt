@@ -5,10 +5,7 @@ import com.rogale.rogalove.models.User
 import com.rogale.rogalove.services.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 
 @RestController
@@ -29,10 +26,14 @@ class RegisterController(
 
 //    @GetMapping
 //    fun getAllUsers(): List<User> = userService.findAll()
-
+//
 //    @GetMapping
 //    fun getRegisterForm(): String {
 //        // Return some data for the register form
-//        return "Register form data"
+//        return "register"
 //    }
+@GetMapping("/register")
+fun showRegistrationForm(): String {
+    return "register"
+}
 }
