@@ -1,6 +1,6 @@
 /* eslint-disable */
 <template>
-  <div class="home">
+  <div class="main">
     <h1>Witaj w świecie Rogali Świętomarcińskich!</h1>
     <p>
       Rogale Świętomarcińskie to tradycyjne, pyszne ciastka, które swoją

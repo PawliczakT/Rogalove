@@ -23,6 +23,10 @@ class UserService(@Autowired private val userRepository: UserRepository) : UserD
 
     fun deleteById(id: Long) = userRepository.deleteById(id)
 
+    fun existsByUsernameOrEmail(username: String, email: String): Boolean {
+        return userRepository.existsByUsername(username) || userRepository.existsByEmail(email)
+    }
+
     @Throws(UsernameNotFoundException::class)
     override fun loadUserByUsername(username: String): UserDetails {
         val user = userRepository.findByUsername(username)
