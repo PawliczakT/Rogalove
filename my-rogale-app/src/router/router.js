@@ -1,8 +1,8 @@
 import { createApp } from 'vue';
-import App from './App.vue'; // Your main App.vue file
-import Home from './components/Home.vue';
-import Register from './components/Register.vue';
-import Login from './components/Login.vue';
+import App from '../App.vue'; // Your main App.vue file
+import Home from '../components/Index.vue';
+import Register from '../components/Register.vue';
+import Login from '../components/Login.vue';
 import VueRouter from 'vue-router';
 
 const router = VueRouter.createRouter({

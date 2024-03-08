@@ -47,10 +47,10 @@ class SecurityConfig {
     fun securityFilterChain(http: HttpSecurity):
             SecurityFilterChain {
         http.csrf().disable()
-            .cors().disable()
+            .cors().and()
             .authorizeHttpRequests { requests ->
             requests
-                .requestMatchers("/", "/home", "/login", "/register/**", "/stats").permitAll()
+                .requestMatchers("/", "/home", "/login", "/register/**", "/stats", "api/users", "/index", "/main", "/register").permitAll()
                 .anyRequest().authenticated()
         }
             .formLogin { form ->
