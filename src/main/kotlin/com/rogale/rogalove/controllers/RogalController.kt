@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*
 
 
 @RestController
-@RequestMapping("/rogale")
+@RequestMapping("/api/rogals")
 class RogalController(@Autowired private val rogalService: RogalService, @Autowired private val rogalRepository: RogalRepository) {
 
     @PostMapping

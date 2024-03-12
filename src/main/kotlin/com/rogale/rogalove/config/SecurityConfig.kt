@@ -13,9 +13,6 @@ import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.provisioning.InMemoryUserDetailsManager
 import org.springframework.security.web.SecurityFilterChain
-import org.springframework.web.servlet.config.annotation.EnableWebMvc
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 
 @Configuration
@@ -78,16 +75,5 @@ class SecurityConfig {
             .build()
 
         return InMemoryUserDetailsManager(user)
-    }
-}
-
-@Configuration
-@EnableWebMvc
-class WebConfig : WebMvcConfigurer {
-
-    override fun addResourceHandlers(registry: ResourceHandlerRegistry) {
-        registry.addResourceHandler("/**")
-            .addResourceLocations("classpath:/static/")
-            .setCachePeriod(0)
     }
 }

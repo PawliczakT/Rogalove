@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/ratings")
+@RequestMapping("/api/ratings")
 class RatingController(@Autowired private val ratingService: RatingService) {
 
     @PostMapping

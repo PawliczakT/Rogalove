@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/stats")
+@RequestMapping("/api/stats")
 class RogalStatsController(@Autowired private val rogalService: RogalService) {
 
     @GetMapping

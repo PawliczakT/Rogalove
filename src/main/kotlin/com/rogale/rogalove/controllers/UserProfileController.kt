@@ -14,10 +14,15 @@ import org.springframework.web.bind.annotation.*
 class UserProfileController(@Autowired private val userService: UserService) {
 
     @GetMapping
-    fun getProfile(@AuthenticationPrincipal userDetails: UserDetails): User {
-        val username = userDetails.username
-        return userService.findByUsername(username)
-                ?: throw RuntimeException("User not found with username: $username")
+    fun getAllUsers(): ResponseEntity<List<User>> {
+        val users = userService.findAll()
+        return ResponseEntity.ok(users)
+    }
+
+    @GetMapping("/{id}")
+    fun getUserById(@PathVariable id: String): ResponseEntity<User> {
+        val user = userService.findById(id) ?: return ResponseEntity.notFound().build()
+        return ResponseEntity.ok(user)
     }
 
     @PostMapping
@@ -31,4 +36,12 @@ class UserProfileController(@Autowired private val userService: UserService) {
     }
 
     data class UserDto(val username: String, val password: String, val email: String, val roles: Any?)
+
+    @GetMapping("/profile")
+    fun getProfile(@AuthenticationPrincipal userDetails: UserDetails): ResponseEntity<User> {
+        val username = userDetails.username
+        val user = userService.findByUsername(username)
+            ?: throw RuntimeException("User not found with username: $username")
+        return ResponseEntity.ok(user)
+    }
 }
