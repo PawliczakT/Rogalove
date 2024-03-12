@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository
 
 
 @Repository
-interface RogalRepository : MongoRepository<Rogal, Long> {
+interface RogalRepository : MongoRepository<Rogal, String> {
 
     @Query(value = "{}", sort = "{'id': 1}")
     fun findAllOrdered(pageable: Pageable): List<Rogal>

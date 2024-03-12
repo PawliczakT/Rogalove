@@ -14,6 +14,6 @@ class RatingController(@Autowired private val ratingService: RatingService) {
 
     @PostMapping
     fun addRating(@RequestBody rating: Rating): Rating {
-        return ratingService.save(rating)
+        return ratingService.addRating(rating)
     }
 }

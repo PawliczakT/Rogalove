@@ -36,7 +36,7 @@
 
 <script>
 import CroissantCard from '@/views/CroissantCard.vue'
-import AddCroissantModal from '@/views/AddCroissantModal.vue'
+import AddCroissantModal from '@/views/AddRogalModal.vue'
 import CroissantService from '@/services/CroissantService'
 
 export default {

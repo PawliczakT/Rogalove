@@ -14,7 +14,7 @@ class RogalController(@Autowired private val rogalService: RogalService, @Autowi
 
     @PostMapping
     fun addRogal(@RequestBody rogal: Rogal): Rogal {
-        return rogalService.save(rogal)
+        return rogalService.add(rogal)
     }
 
     @GetMapping

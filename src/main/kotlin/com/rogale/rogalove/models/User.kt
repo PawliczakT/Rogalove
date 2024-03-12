@@ -1,11 +1,13 @@
 package com.rogale.rogalove.models
 
 import com.nimbusds.oauth2.sdk.Role
+import lombok.Data
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.DBRef
 import org.springframework.data.mongodb.core.mapping.Document
 
 @Document(collection = "users")
+@Data
 data class User(
 
     @Id
@@ -18,8 +20,5 @@ data class User(
     var password: String,
 
     val role: String,
-
-    @DBRef
-    val ratings: MutableList<Rating> = mutableListOf()
 
 )

@@ -1,21 +1,16 @@
 package com.rogale.rogalove.models
 
+import lombok.Data
 import org.springframework.data.annotation.Id
-import org.springframework.data.mongodb.core.mapping.DBRef
 import org.springframework.data.mongodb.core.mapping.Document
 
+
 @Document(collection = "rogals")
-data class Rogal(
-
+@Data
+class Rogal {
         @Id
-        var id: Long,
-
-        val name: String,
-
-        val imageUrl: String,
-
-        val description: String,
-
-        @DBRef
-        val ratings: MutableList<Rating> = mutableListOf()
-)
+        private val id: String? = null
+        private val name: String? = null
+        private val description: String? = null
+        private val photo: String? = null
+}
