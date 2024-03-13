@@ -11,8 +11,4 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api/stats")
 class RogalStatsController(@Autowired private val rogalService: RogalService) {
 
-    @GetMapping
-    fun getRogalStats(): List<RogalStats> {
-        return rogalService.getRogalStats()
-    }
 }

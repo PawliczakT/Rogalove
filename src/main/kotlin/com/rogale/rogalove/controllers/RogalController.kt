@@ -29,4 +29,10 @@ class RogalController(@Autowired private val rogalService: RogalService, @Autowi
         return ResponseEntity.ok(rogale)
     }
 
+    @GetMapping("/{rogalId}/average-rating")
+    fun getRogalAverageRating(@PathVariable rogalId: String): ResponseEntity<Double> {
+        val averageRating = rogalService.getAverageRatingForRogal(rogalId)
+        return ResponseEntity.ok(averageRating)
+    }
+
 }

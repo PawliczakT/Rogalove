@@ -10,4 +10,5 @@ interface UserRepository : MongoRepository<User, String> {
     fun findByEmail(email: String): User?
     fun existsByUsername(username: String): Boolean
     fun existsByEmail(email: String): Boolean
+    fun existsByUsernameOrEmail(username: String, email: String): Boolean
 }

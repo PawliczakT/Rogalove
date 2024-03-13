@@ -1,19 +1,18 @@
 package com.rogale.rogalove.controllers
 
 import com.rogale.rogalove.models.Rating
+import com.rogale.rogalove.models.Rogal
 import com.rogale.rogalove.services.RatingService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/ratings")
 class RatingController(@Autowired private val ratingService: RatingService) {
 
-    @PostMapping
-    fun addRating(@RequestBody rating: Rating): Rating {
-        return ratingService.save(rating)
+
+    @PostMapping("/rogal/{rogalName}")
+    fun addRatingToRogal(@RequestBody rating: Rating, @PathVariable rogalName: String): Rogal {
+        return ratingService.addRatingToRogal(rogalName, rating)
     }
 }

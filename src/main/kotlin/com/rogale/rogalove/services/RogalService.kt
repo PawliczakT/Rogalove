@@ -1,7 +1,6 @@
 package com.rogale.rogalove.services
 
 import com.rogale.rogalove.models.Rogal
-import com.rogale.rogalove.models.RogalStats
 import com.rogale.rogalove.repositories.RogalRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
@@ -21,28 +20,48 @@ class RogalService(@Autowired private val rogalRepository: RogalRepository) {
         return rogalRepository.findTopRatedRogale(pageable)
     }
 
-    fun findById(id: Long): Rogal? = rogalRepository.findById(id).orElse(null)
+    fun findAll(): List<Rogal> = rogalRepository.findAll()
+
+    fun findByName(name: String): Rogal? = rogalRepository.findByName(name)
+
+    fun findById(id: String): Rogal? = rogalRepository.findById(id).orElse(null)
 
     fun save(rogal: Rogal): Rogal = rogalRepository.save(rogal)
 
-    fun findAll(): List<Rogal> = rogalRepository.findAll()
+    fun deleteById(id: String) = rogalRepository.deleteById(id)
 
-    fun deleteById(id: Long) = rogalRepository.deleteById(id)
+    fun existsByName(name: String): Boolean = rogalRepository.existsByName(name)
 
-    fun getRogalStats(): List<RogalStats> {
-        val rogale = rogalRepository.findAll()
-        val rogalStats = mutableListOf<RogalStats>()
+    data class CreateRogalDto(
+        val name: String,
+        val imageUrl: String,
+        val description: String,
+        val price: Double,
+        val weight: Double,
+    )
 
-        for (rogal in rogale) {
-            val totalVotes = rogal.ratings.size
-            val averageRating = if (totalVotes > 0) {
-                rogal.ratings.map { it.score }.average()
-            } else {
-                0.0
-            }
-            rogalStats.add(RogalStats(rogal.id, rogal.name, rogal.imageUrl, totalVotes, averageRating))
+    fun createRogal(createRogalDto: CreateRogalDto): Rogal {
+        if (existsByName(createRogalDto.name)) {
+            throw Exception("Rogal with the given name already exists")
         }
 
-        return rogalStats
+        val newRogal = Rogal(
+            name = createRogalDto.name,
+            imageUrl = createRogalDto.imageUrl,
+            description = createRogalDto.description,
+            price = createRogalDto.price,
+            weight = createRogalDto.weight,
+        )
+
+        return rogalRepository.save(newRogal)
+    }
+
+    fun getAverageRatingForRogal(rogalName: String): Double {
+        val rogal: Rogal = rogalRepository.findById(rogalName).orElseThrow {
+            throw Exception("Rogal not found with id: $rogalName")
+        }
+        return if (rogal.ratings.isNotEmpty()) {
+            rogal.ratings.map { it.rate }.average()
+        } else 0.0
     }
 }

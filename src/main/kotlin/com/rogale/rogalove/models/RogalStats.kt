@@ -1,8 +1,11 @@
 package com.rogale.rogalove.models
 
+import org.springframework.data.annotation.Id
+
 data class RogalStats(
-        val id: Long,
-        val name: String,
+        @Id
+        val id: String,
+        val rogalName: String,
         val imageUrl: String,
         val totalVotes: Int,
         val averageRating: Double

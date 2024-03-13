@@ -3,50 +3,62 @@
     <h1>Logowanie</h1>
     <form @submit.prevent="login">
       <div>
-        <input v-model="username" placeholder="Nazwa użytkownika" :class="{ 'is-invalid': $v.username.$error }">
-        <div class="invalid-feedback" v-if="!$v.username.required">Nazwa użytkownika jest wymagana.</div>
+        <input v-model="form.username" placeholder="Nazwa użytkownika" :class="{ 'is-invalid': v$.username.$error }">
+        <div class="invalid-feedback" v-if="!v$.username.required">Nazwa użytkownika jest wymagana.</div>
       </div>
       <div>
-        <input v-model="password" type="password" placeholder="Hasło" :class="{ 'is-invalid': $v.password.$error }">
-        <div class="invalid-feedback" v-if="!$v.password.required">Hasło jest wymagane.</div>
+        <input v-model="form.password" type="password" placeholder="Hasło" :class="{ 'is-invalid': v$.password.$error }">
+        <div class="invalid-feedback" v-if="!v$.password.required">Hasło jest wymagane.</div>
       </div>
-      <button type="submit" :disabled="$v.$invalid">Zaloguj</button>
+      <button type="submit" :disabled="v$.$invalid">Zaloguj</button>
     </form>
   </div>
 </template>
 
 <script>
-import { required } from 'vuelidate/lib/validators'
+import { ref } from 'vue';
+import { useVuelidate } from '@vuelidate/core';
+import { required } from '@vuelidate/validators';
 
 export default {
   name: 'LoginView',
-  data() {
-    return {
+  setup() {
+    const form = ref({
       username: '',
       password: ''
-    }
-  },
-  validations: {
-    username: { required },
-    password: { required }
-  },
-  methods: {
-    login() {
-      this.$v.$touch()
-      if (!this.$v.$invalid) {
-        this.$store.dispatch('login', {
-          username: this.username,
-          password: this.password
-        })
+    });
+
+    const rules = {
+      username: { required },
+      password: { required }
+    };
+
+    const v$ = useVuelidate(rules, form);
+
+    const login = () => {
+      v$.value.$touch();
+      if (!v$.value.$invalid) {
+        // Tutaj używamy store i router z Composition API
+        // Załóżmy, że mamy funkcję loginUser do obsługi logowania
+        loginUser(form.value.username, form.value.password)
             .then(() => {
-              this.$router.push('/')
+              // Przekierowanie po pomyślnym logowaniu
+              this.$router.push('/');
             })
             .catch(error => {
-              console.error(error)
+              console.error(error);
               // obsługa błędów
-            })
+            });
       }
-    }
+    };
+
+    // Eksportujemy form i v$ do szablonu, oraz metodę login
+    return { form, v$, login };
   }
+};
+
+// Musisz dostosować tę funkcję do Twojego store
+function loginUser(username, password) {
+  // Tutaj logika logowania, np. wywołanie do API
 }
 </script>
