@@ -18,9 +18,9 @@ class RatingService(@Autowired private val ratingRepository: RatingRepository, @
 
     fun deleteById(id: Long) = ratingRepository.deleteById(id)
 
-    fun addRatingToRogal(rogalId: String, rating: Rating): Rogal {
-        val rogal = rogalRepository.findById(rogalId).orElseThrow {
-            throw Exception("Rogal not found with id: $rogalId")
+    fun addRatingToRogal(rogalName: String, rating: Rating): Rogal {
+        val rogal = rogalRepository.findById(rogalName).orElseThrow {
+            throw Exception("Rogal not found with id: $rogalName")
         }
 
         // Dodaj ocenę do listy ocen rogala

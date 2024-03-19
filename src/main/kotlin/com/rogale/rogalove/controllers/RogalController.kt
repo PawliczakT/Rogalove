@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/rogals")
-class RogalController(@Autowired private val rogalService: RogalService, @Autowired private val rogalRepository: RogalRepository) {
+class RogalController(private val rogalService: RogalService) {
 
     @PostMapping
     fun addRogal(@RequestBody rogal: Rogal): Rogal {
-        return rogalService.save(rogal)
+        return rogalService.addRogal(rogal)
     }
 
     @GetMapping
@@ -29,10 +29,16 @@ class RogalController(@Autowired private val rogalService: RogalService, @Autowi
         return ResponseEntity.ok(rogale)
     }
 
-    @GetMapping("/{rogalId}/average-rating")
-    fun getRogalAverageRating(@PathVariable rogalId: String): ResponseEntity<Double> {
-        val averageRating = rogalService.getAverageRatingForRogal(rogalId)
+    @GetMapping("/{rogalName}/average-rating")
+    fun getRogalAverageRating(@PathVariable rogalName: String): ResponseEntity<Double> {
+        val averageRating = rogalService.getAverageRatingForRogal(rogalName)
         return ResponseEntity.ok(averageRating)
+    }
+
+    @PostMapping("/create")
+    fun createRogal(@RequestBody createRogalDto: RogalService.CreateRogalDto): ResponseEntity<Rogal> {
+        val rogal = rogalService.createRogal(createRogalDto)
+        return ResponseEntity.ok(rogal)
     }
 
 }

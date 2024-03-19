@@ -45,7 +45,7 @@ class SecurityConfig {
             SecurityFilterChain {
         http.authorizeHttpRequests { requests ->
             requests
-                .requestMatchers("/", "/{rogalId}/average-rating", "/home", "/login", "/register/**", "/stats", "api/users", "api/rogals", "/index", "/main", "/register", "api/users/{id}", "api/rogals/toprated").permitAll()
+                .requestMatchers("/", "api/rogals/create", "/{rogalName}/average-rating", "/home", "/login", "/register/**", "/stats", "api/users", "api/rogals", "/index", "/main", "/register", "api/users/{id}", "api/rogals/toprated").permitAll()
                 .anyRequest().authenticated()
         }
             .formLogin { form ->

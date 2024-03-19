@@ -36,7 +36,7 @@ export default createStore({
         },
         fetchRogale({ commit }) {
             // Przykład pobierania rogali, dostosuj URL zgodnie z API
-            axios.get('/api/rogale')
+            axios.get('/api/rogals')
                 .then(response => {
                     commit('setRogale', response.data.rogale);
                 })
